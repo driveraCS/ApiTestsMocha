@@ -157,4 +157,31 @@ describe('My Api tests', function() {
 		});
 	});
 	
+	// supertest
+	it('GET /brands/1 responds with json', function(done) {
+		supertest(server)
+		.get('/brands/1')
+		.set('Accept', 'application/json')
+		.expect('Content-Type', /json/)
+		.expect(200, done);
+	});
+	
+	it('POST /vehicles responds with json', function(done) {
+		supertest(server)
+		.post('/vehicles')
+		.send({
+			model: 'Yaris',
+			color: 'Red',
+			fuel: 'Gasoline',
+			year: '2000',
+			price: '₡2500000',
+			brandId: 'Toyota'
+		})
+		.set('Accept', 'application/json')
+		.expect(200)
+		.end(function(err, res) {
+			if (err) return done(err);
+			done();
+		});
+	});
 });
